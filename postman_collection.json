@@ -1,0 +1,306 @@
+{
+  "info": {
+    "_postman_id": "securevault-collection-2026",
+    "name": "SecureVault REST API",
+    "description": "Postman Collection for SecureVault Organisation-Level Credential Management Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "credentialId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "employeeId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Employee",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Aditya K.\",\n  \"email\": \"aditya@company.com\",\n  \"masterPassword\": \"MasterPassword123!@#\",\n  \"role\": \"employee\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "  pm.collectionVariables.set('token', res.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"meera@company.com\",\n  \"masterPassword\": \"MasterPassword123!@#\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login Employee",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "  pm.collectionVariables.set('token', res.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"aditya@company.com\",\n  \"masterPassword\": \"MasterPassword123!@#\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Credentials (Vault)",
+      "item": [
+        {
+          "name": "List Accessible Credentials",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/credentials", "host": ["{{baseUrl}}"], "path": ["credentials"] }
+          }
+        },
+        {
+          "name": "Create Encrypted Credential",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"AWS Console\",\n  \"username\": \"admin@corp\",\n  \"password\": \"Qm7#vR2!pLx9@Tz4\",\n  \"url\": \"https://aws.amazon.com\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/credentials", "host": ["{{baseUrl}}"], "path": ["credentials"] }
+          }
+        },
+        {
+          "name": "Reveal Password on Demand",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/credentials/{{credentialId}}/reveal", "host": ["{{baseUrl}}"], "path": ["credentials", "{{credentialId}}", "reveal"] }
+          }
+        },
+        {
+          "name": "Update Credential",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"AWS Console (Production)\",\n  \"username\": \"admin@corp\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/credentials/{{credentialId}}", "host": ["{{baseUrl}}"], "path": ["credentials", "{{credentialId}}"] }
+          }
+        },
+        {
+          "name": "Generate High-Entropy Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"length\": 18,\n  \"uppercase\": true,\n  \"lowercase\": true,\n  \"numbers\": true,\n  \"symbols\": true\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/credentials/generate", "host": ["{{baseUrl}}"], "path": ["credentials", "generate"] }
+          }
+        },
+        {
+          "name": "Delete Credential",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/credentials/{{credentialId}}", "host": ["{{baseUrl}}"], "path": ["credentials", "{{credentialId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Sharing",
+      "item": [
+        {
+          "name": "Get Active Colleagues for Sharing",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/credentials/colleagues/active", "host": ["{{baseUrl}}"], "path": ["credentials", "colleagues", "active"] }
+          }
+        },
+        {
+          "name": "Share Credential with Colleague",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sharedWith\": \"{{employeeId}}\",\n  \"permission\": \"view\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/credentials/{{credentialId}}/share", "host": ["{{baseUrl}}"], "path": ["credentials", "{{credentialId}}", "share"] }
+          }
+        },
+        {
+          "name": "Revoke Shared Access",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/credentials/{{credentialId}}/share/{{employeeId}}", "host": ["{{baseUrl}}"], "path": ["credentials", "{{credentialId}}", "share", "{{employeeId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Password Health",
+      "item": [
+        {
+          "name": "My Password Health Report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/health/me", "host": ["{{baseUrl}}"], "path": ["health", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Admin & Audit (RBAC)",
+      "item": [
+        {
+          "name": "Admin Dashboard Overview",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["admin", "dashboard"] }
+          }
+        },
+        {
+          "name": "Organisation Health (Zero-Knowledge)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/health", "host": ["{{baseUrl}}"], "path": ["admin", "health"] }
+          }
+        },
+        {
+          "name": "List Organisation Users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/users", "host": ["{{baseUrl}}"], "path": ["admin", "users"] }
+          }
+        },
+        {
+          "name": "Toggle User Status (Cascade Share Revoke)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/users/{{employeeId}}/status", "host": ["{{baseUrl}}"], "path": ["admin", "users", "{{employeeId}}", "status"] }
+          }
+        },
+        {
+          "name": "Get Audit Logs (Filterable)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/admin/audit?user=all&action=all&dateRange=7d",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "audit"],
+              "query": [
+                { "key": "user", "value": "all" },
+                { "key": "action", "value": "all" },
+                { "key": "dateRange", "value": "7d" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export Audit Logs CSV",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/admin/audit?export=csv",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "audit"],
+              "query": [{ "key": "export", "value": "csv" }]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

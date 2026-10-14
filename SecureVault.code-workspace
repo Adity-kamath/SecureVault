@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "name": "🌐 Frontend (Client)",
+      "path": "client"
+    },
+    {
+      "name": "⚙️ Backend (Server)",
+      "path": "server"
+    },
+    {
+      "name": "🗄️ Database",
+      "path": "database"
+    },
+    {
+      "name": "📁 Project Root & Docs",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": false,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.mongodb-memory-server": true
+    },
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "mongodb.mongodb-vscode",
+      "rangav.vscode-thunder-client"
+    ]
+  }
+}

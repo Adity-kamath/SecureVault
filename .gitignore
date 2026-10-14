@@ -1,0 +1,60 @@
+# ==========================================
+# SecureVault .gitignore
+# ==========================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+package-lock.json
+client/package-lock.json
+server/package-lock.json
+
+# Environment Variables & Secrets (CRITICAL: Never commit secrets)
+.env
+.env.*
+!.env.example
+server/.env
+server/.env.*
+!server/.env.example
+client/.env
+client/.env.*
+!client/.env.example
+
+# Build Outputs
+dist/
+client/dist/
+build/
+client/build/
+
+# Logs & Debugging
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Embedded MongoDB memory database binaries & cache
+mongodb-binaries/
+.mongodb-memory-server/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# IDE & Editor temporary files (keep .vscode committed for project config, ignore local states)
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

@@ -1,0 +1,28 @@
+{
+  "name": "securevault",
+  "version": "1.0.0",
+  "description": "SecureVault - Enterprise Organisation Credential Management Platform (MERN)",
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,green\" \"npm run server\" \"npm run client\"",
+    "start": "npm run dev",
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev",
+    "seed": "npm --prefix server run seed",
+    "build:client": "npm --prefix client run build",
+    "install:server": "npm --prefix server install",
+    "install:client": "npm --prefix client install",
+    "install:all": "npm install && npm run install:server && npm run install:client"
+  },
+  "keywords": [
+    "mern",
+    "credential-vault",
+    "aes-256-gcm",
+    "rbac",
+    "security"
+  ],
+  "author": "SecureVault",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "collections": {
+    "users": [
+      {
+        "_id": "670291a1e04b123456789001",
+        "name": "Meera S.",
+        "email": "meera@company.com",
+        "role": "admin",
+        "isActive": true,
+        "masterPasswordHash": "$2b$12$ExampleHashedPasswordForMeeraAdminAccount...",
+        "createdAt": "2026-10-01T08:00:00.000Z"
+      },
+      {
+        "_id": "670291a1e04b123456789002",
+        "name": "Aditya K.",
+        "email": "aditya@company.com",
+        "role": "employee",
+        "isActive": true,
+        "masterPasswordHash": "$2b$12$ExampleHashedPasswordForAdityaEmployeeAccount...",
+        "createdAt": "2026-10-01T08:15:00.000Z"
+      },
+      {
+        "_id": "670291a1e04b123456789003",
+        "name": "Rahul M.",
+        "email": "rahul@company.com",
+        "role": "employee",
+        "isActive": true,
+        "masterPasswordHash": "$2b$12$ExampleHashedPasswordForRahulEmployeeAccount...",
+        "createdAt": "2026-10-01T08:30:00.000Z"
+      },
+      {
+        "_id": "670291a1e04b123456789004",
+        "name": "Sneha P.",
+        "email": "sneha@company.com",
+        "role": "employee",
+        "isActive": true,
+        "masterPasswordHash": "$2b$12$ExampleHashedPasswordForSnehaEmployeeAccount...",
+        "createdAt": "2026-10-01T08:45:00.000Z"
+      },
+      {
+        "_id": "670291a1e04b123456789005",
+        "name": "Kiran T.",
+        "email": "kiran@company.com",
+        "role": "employee",
+        "isActive": false,
+        "masterPasswordHash": "$2b$12$ExampleHashedPasswordForKiranDeactivatedAccount...",
+        "createdAt": "2026-10-01T09:00:00.000Z"
+      }
+    ],
+    "credentials": [
+      {
+        "_id": "670292b2e04b123456789101",
+        "ownerId": "670291a1e04b123456789002",
+        "title": "AWS Console",
+        "username": "admin@corp",
+        "url": "https://aws.amazon.com",
+        "encryptedPassword": "d748f93e0b2a34891fc8a38c2910fae1bc98",
+        "iv": "3a78910bc4ef1290384756ab1234cdef",
+        "authTag": "89ab12cd34ef5678901234567890abcd",
+        "strengthScore": 3,
+        "lastUpdated": "2026-10-07T12:00:00.000Z"
+      },
+      {
+        "_id": "670292b2e04b123456789102",
+        "ownerId": "670291a1e04b123456789002",
+        "title": "GitHub",
+        "username": "aditya-org",
+        "url": "https://github.com",
+        "encryptedPassword": "f948a1239c01bc8947d10928374a56b8291f",
+        "iv": "4b89012cd5fa2301495867bc2345def0",
+        "authTag": "90bc23de45fa6789012345678901bcde",
+        "strengthScore": 3,
+        "lastUpdated": "2026-09-30T10:00:00.000Z"
+      },
+      {
+        "_id": "670292b2e04b123456789103",
+        "ownerId": "670291a1e04b123456789002",
+        "title": "Vendor Portal",
+        "username": "aditya_v",
+        "url": "https://vendor.example.com",
+        "encryptedPassword": "e12984afbc89304192837465019283746501",
+        "iv": "5c90123de6ab3412506978cd3456ef01",
+        "authTag": "01cd34ef56ab7890123456789012cdef",
+        "strengthScore": 4,
+        "lastUpdated": "2026-10-14T09:00:00.000Z"
+      },
+      {
+        "_id": "670292b2e04b123456789104",
+        "ownerId": "670291a1e04b123456789002",
+        "title": "Legacy Intranet",
+        "username": "aditya_intra",
+        "url": "https://intranet.internal",
+        "encryptedPassword": "c987213098fca01928475610293847561029",
+        "iv": "6da1234ef7bc4523617089de4567f012",
+        "authTag": "12de45fa67bc8901234567890123def0",
+        "strengthScore": 1,
+        "lastUpdated": "2026-07-14T08:00:00.000Z"
+      },
+      {
+        "_id": "670292b2e04b123456789105",
+        "ownerId": "670291a1e04b123456789003",
+        "title": "Jira Enterprise",
+        "username": "rahul.m",
+        "url": "https://jira.company.com",
+        "encryptedPassword": "b87610293847561029384756102938475610",
+        "iv": "7eb2345fa8cd5634728190ef56780123",
+        "authTag": "23ef56ab78cd9012345678901234ef01",
+        "strengthScore": 4,
+        "lastUpdated": "2026-10-14T11:00:00.000Z"
+      }
+    ],
+    "sharedaccesses": [
+      {
+        "_id": "670293c3e04b123456789201",
+        "credentialId": "670292b2e04b123456789101",
+        "sharedWith": "670291a1e04b123456789003",
+        "sharedBy": "670291a1e04b123456789002",
+        "permission": "view",
+        "createdAt": "2026-10-07T12:30:00.000Z"
+      },
+      {
+        "_id": "670293c3e04b123456789202",
+        "credentialId": "670292b2e04b123456789101",
+        "sharedWith": "670291a1e04b123456789004",
+        "sharedBy": "670291a1e04b123456789002",
+        "permission": "edit",
+        "createdAt": "2026-10-07T12:35:00.000Z"
+      }
+    ],
+    "auditlogs": [
+      {
+        "_id": "670294d4e04b123456789301",
+        "userId": "670291a1e04b123456789002",
+        "action": "share",
+        "credentialId": "670292b2e04b123456789101",
+        "credentialTitle": "AWS Console",
+        "timestamp": "2026-10-14T10:47:00.000Z",
+        "details": "Shared AWS Console with Rahul (view) and Sneha (edit)",
+        "ipAddress": "192.168.1.45"
+      },
+      {
+        "_id": "670294d4e04b123456789302",
+        "userId": "670291a1e04b123456789001",
+        "action": "login",
+        "timestamp": "2026-10-14T10:30:00.000Z",
+        "details": "Admin authentication from secure workstation",
+        "ipAddress": "10.0.0.12"
+      }
+    ]
+  }
+}
