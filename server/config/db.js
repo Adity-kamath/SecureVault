@@ -16,9 +16,14 @@ const connectDB = async () => {
   } catch (error) {
     console.warn(`[Database] Local MongoDB unavailable at ${targetUri} (${error.message}).`);
 
-    if (process.env.NODE_ENV === 'production') {
-      console.error('[Database Error] Cannot proceed in production without valid MongoDB URI.');
+    if (process.env.NODE_ENV === 'production' && process.env.MONGO_URI) {
+      console.error(`[Database Error] Could not connect to provided MONGO_URI in production: ${error.message}`);
       process.exit(1);
+    }
+
+    if (process.env.NODE_ENV === 'production' && !process.env.MONGO_URI) {
+      console.error('[Database Warning] No MONGO_URI provided in production environment.');
+      console.log('[Database] Attempting embedded database or fallback...');
     }
 
     try {

@@ -32,6 +32,19 @@ app.use('/api/credentials', require('./routes/credentialRoutes'));
 app.use('/api/health', require('./routes/healthRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 
+// Serve client build in production
+const path = require('path');
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+  });
+}
+
 // 404 Handler for undefined routes
 app.use((req, res, next) => {
   res.status(404).json({
