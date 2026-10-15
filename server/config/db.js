@@ -8,11 +8,29 @@ const connectDB = async () => {
 
   try {
     const conn = await mongoose.connect(targetUri, {
-      serverSelectionTimeoutMS: 2000,
+      serverSelectionTimeoutMS: 10000,
       autoIndex: true
     });
 
     console.log(`[Database] MongoDB Connected: ${conn.connection.host}/${conn.connection.name}`);
+
+    // Auto-seed if the database is empty (first deployment)
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        const User = require('../models/User');
+        const userCount = await User.countDocuments();
+        if (userCount === 0) {
+          console.log('[Database] Empty database detected in production. Auto-seeding demo data...');
+          const seedData = require('../seed');
+          await seedData();
+          console.log('[Database] Demo dataset seeded successfully.');
+        } else {
+          console.log(`[Database] Database has ${userCount} existing users. Skipping seed.`);
+        }
+      } catch (seedErr) {
+        console.error(`[Database] Auto-seed failed: ${seedErr.message}`);
+      }
+    }
   } catch (error) {
     console.warn(`[Database] Local MongoDB unavailable at ${targetUri} (${error.message}).`);
 
