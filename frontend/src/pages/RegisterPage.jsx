@@ -10,6 +10,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [masterPassword, setMasterPassword] = useState('');
   const [role, setRole] = useState('employee');
+  const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
