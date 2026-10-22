@@ -8,17 +8,22 @@ node_modules/
 package-lock.json
 client/package-lock.json
 server/package-lock.json
+frontend/package-lock.json
+backend/package-lock.json
 
 # Environment Variables & Secrets (CRITICAL: Never commit secrets)
 .env
 .env.*
 !.env.example
-server/.env
-server/.env.*
-!server/.env.example
-client/.env
-client/.env.*
-!client/.env.example
+config/.env
+config/.env.*
+!config/.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
 
 # Build Outputs
 dist/

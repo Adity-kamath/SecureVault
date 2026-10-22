@@ -1,12 +1,12 @@
 {
   "folders": [
     {
-      "name": "🌐 Frontend (Client)",
-      "path": "client"
+      "name": "🌐 Frontend",
+      "path": "frontend"
     },
     {
-      "name": "⚙️ Backend (Server)",
-      "path": "server"
+      "name": "⚙️ Backend",
+      "path": "backend"
     },
     {
       "name": "🗄️ Database",

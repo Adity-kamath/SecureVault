@@ -53,45 +53,53 @@
 
 ## 2. Project Structure
 
-The project is cleanly divided into **Frontend (`client`)**, **Backend (`server`)**, and **Database (`database`)**:
+> 💡 **Detailed Documentation**: For a comprehensive, file-by-file explanation of what every module and file does, refer to [`MODULES.md`](./MODULES.md).
+
+The project is cleanly divided into **Frontend (`frontend`)**, **Backend (`backend`)**, **Database (`database`)**, **Config (`config`)**, **Others (`others`)**, and **Documentation (`docs`)**:
 
 ```text
 fsd-project / SecureVault/
-├── client/                              # 🌐 FRONTEND (React 18 + Vite)
+├── frontend/                            # 🌐 FRONTEND (React 18 + Vite)
 │   ├── index.html                       # HTML entry shell
 │   ├── vite.config.js                   # Vite config with /api reverse proxy
 │   ├── package.json                     # Frontend dependencies & scripts
 │   └── src/
 │       ├── main.jsx                     # Application bootstrap
 │       ├── App.jsx                      # Routing & RBAC route protection
-│       ├── index.css                    # Emerald/Slate design system
+│       ├── index.css                    # Modern Tailwind/Glassmorphism-styled UI
 │       ├── context/AuthContext.jsx      # JWT session state management
 │       ├── services/api.js              # Axios instance with auto JWT interceptor
 │       ├── components/                  # Modals, Navbar, Sidebar, Strength meters
 │       └── pages/                       # Login, Register, Vault, Health, Admin
 │
-├── server/                              # ⚙️ BACKEND (Express.js REST API)
+├── backend/                             # ⚙️ BACKEND (Express.js REST API)
 │   ├── server.js                        # Express app & route mounting
 │   ├── package.json                     # Backend dependencies & scripts
-│   ├── .env                             # Local config (excluded from Git)
-│   ├── .env.example                     # Environment template
-│   ├── seed.js                          # Database seeder (sample org data)
-│   ├── config/db.js                     # MongoDB connection & fallback
 │   ├── controllers/                     # Auth, Credentials, Health, Admin
 │   ├── middleware/                      # Auth JWT, RBAC guards, Error handling
-│   ├── models/                          # Mongoose Schemas (User, Credential, etc.)
 │   ├── routes/                          # REST route definitions
 │   └── utils/                           # AES-256-GCM crypto, zxcvbn, Audit logger
 │
-├── database/                            # 🗄️ DATABASE (Schemas, Seeders, Documentation)
-│   ├── seed.js                          # Seeder entrypoint script
+├── database/                            # 🗄️ DATABASE (Schemas, Seeders, Config)
+│   ├── config/db.js                     # MongoDB connection & in-memory fallback
+│   ├── models/                          # Mongoose Schemas (User, Credential, etc.)
+│   ├── seed.js                          # Self-contained database seeder
 │   ├── sample_data.json                 # Reference JSON export of initial fixtures
 │   └── README.md                        # Dedicated database setup & schema guide
 │
+├── config/                              # 🔐 ENVIRONMENT & CONFIGURATION
+│   ├── .env                             # Local configuration (excluded from git)
+│   └── .env.example                     # Environment variables template
+│
+├── others/                              # 🛠️ UTILITIES & SCRIPTS
+│   ├── postman_collection.json          # Postman API test collection (v2.1)
+│   ├── generate_diagrams.py             # Architecture & sequence diagram generator
+│   └── update_report.py                 # Project documentation report updater
+│
 ├── docs/                                # 📚 PRESENTATIONS & DOCUMENTATION
 │   ├── presentations/                   # Review 0, Review 1, and Screen PPTX files
-│   ├── screenshots/                     # 11 Full-resolution UI screenshots
-│   ├── SecureVault review 1 summary.docx
+│   ├── screenshots/                     # Full-resolution UI screenshots
+│   ├── diagrams/                        # Generated architecture & class diagrams
 │   └── README.md                        # Documentation index
 │
 ├── .vscode/                             # 💻 VS CODE INTEGRATION
@@ -103,7 +111,6 @@ fsd-project / SecureVault/
 ├── SecureVault.code-workspace           # 🚀 VS CODE WORKSPACE IMPORT FILE
 ├── .gitignore                           # Excludes node_modules, .env, dist, logs
 ├── package.json                         # Root orchestrator with concurrent scripts
-├── postman_collection.json              # Postman API test collection (v2.1)
 └── README.md                            # Main project guide
 ```
 
@@ -152,15 +159,15 @@ npm run install:all
 *(This installs root dependencies, backend packages, and frontend packages in one command.)*
 
 ### Step 2: Configure Environment Variables
-Verify that `server/.env` exists. If not, copy it from the template:
+Verify that `config/.env` exists. If not, copy it from the template:
 ```bash
 # On Windows PowerShell:
-Copy-Item server/.env.example server/.env
+Copy-Item config/.env.example config/.env
 
 # On Mac/Linux:
-cp server/.env.example server/.env
+cp config/.env.example config/.env
 ```
-Default `server/.env` configuration:
+Default `config/.env` configuration:
 ```ini
 PORT=5000
 NODE_ENV=development

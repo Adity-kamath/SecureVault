@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SecureVault · Modules & Files Reference Manual</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 14mm 18mm 14mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      line-height: 1.55;
+      font-size: 10pt;
+    }
+
+    .cover-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #064e3b 100%);
+      color: #ffffff;
+      padding: 32px 28px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      page-break-after: avoid;
+    }
+
+    .cover-card h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cover-card .subtitle {
+      font-size: 11pt;
+      color: #94a3b8;
+      max-width: 90%;
+      margin-bottom: 16px;
+    }
+
+    .badge-container {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 8pt;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-emerald {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-indigo {
+      background-color: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+
+    .badge-amber {
+      background-color: rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    h2 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #334155;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #475569;
+    }
+
+    .arch-diagram-box {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 8.5pt;
+      color: #0f172a;
+      white-space: pre;
+      margin-bottom: 16px;
+      line-height: 1.4;
+      page-break-inside: avoid;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      font-size: 8.5pt;
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      font-weight: 700;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+    }
+
+    td {
+      padding: 7px 10px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+      color: #334155;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 8.5pt;
+      background-color: #e2e8f0;
+      color: #0f172a;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .file-cell {
+      white-space: nowrap;
+      font-weight: 600;
+      color: #0369a1;
+    }
+
+    .callout {
+      border-left: 4px solid #059669;
+      background-color: #f0fdf4;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 14px;
+      font-size: 8.5pt;
+      color: #166534;
+      page-break-inside: avoid;
+    }
+
+    .callout-blue {
+      border-left-color: #2563eb;
+      background-color: #eff6ff;
+      color: #1e40af;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 8pt;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+      page-break-before: avoid;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover-card">
+    <h1>🛡️ SecureVault</h1>
+    <div class="subtitle">
+      Enterprise Organization Credential Management Platform (MERN Stack)<br>
+      <strong>Comprehensive Architecture, Modules & Files Reference Manual</strong>
+    </div>
+    <div class="badge-container">
+      <span class="badge badge-emerald">AES-256-GCM Encryption</span>
+      <span class="badge badge-indigo">Role-Based Access Control</span>
+      <span class="badge badge-amber">Zero-Knowledge Architecture</span>
+      <span class="badge badge-emerald">Tamper-Evident Audit Logging</span>
+    </div>
+  </div>
+
+  <h2>1. System Architecture & High-Level Module Overview</h2>
+  <p>
+    SecureVault isolates responsibility across 6 distinct project directories. Every request enforces authenticated sessions, input validation, cryptographic confidentiality, and audit tracking.
+  </p>
+
+  <div class="arch-diagram-box">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       🌐 FRONTEND (React 18 + Vite)                         │
+│  • Pages (Login, Vault, Health, Admin) • Contexts (Auth JWT)               │
+│  • Components (Generator, Modals, Strength Meter) • Axios Services         │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │ HTTPS / JSON REST (Bearer JWT)
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      ⚙️ BACKEND (Node.js + Express.js)                      │
+│  • Middleware (JWT Verification, RBAC, Validation, Central Error Handling)   │
+│  • Controllers (Auth, Credentials, Sharing, Health, Admin)                  │
+│  • Crypto Engine (AES-256-GCM cipher/decipher, IV generation, zxcvbn)       │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │ Mongoose ODM / TLS
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         🗄️ DATABASE (MongoDB Engine)                        │
+│  • Collections: users, credentials, sharedaccesses, auditlogs              │
+│  • Embedded MongoDB Memory Server fallback for instant zero-config setup     │
+└─────────────────────────────────────────────────────────────────────────────┘
+  </div>
+
+  <div class="callout">
+    <strong>Zero-Knowledge Security Invariant:</strong> System administrators possess governance authority (suspending users, setting access tiers, inspecting audit logs), but the cryptographic architecture prevents administrators or databases from decrypting passwords of accounts they do not own.
+  </div>
+
+  <h2>2. Frontend Module (<code>frontend/</code>)</h2>
+  <p>The presentation tier built with React 18, Vite, and modern CSS glassmorphism components.</p>
+
+  <h3>2.1 Core & Infrastructure Files</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>frontend/index.html</code></td>
+        <td>Single Page Application entry shell. Mounts root DOM container <code>#root</code>, defines viewport responsiveness, and configures document title.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/vite.config.js</code></td>
+        <td>Vite build configuration. Integrates <code>@vitejs/plugin-react</code> and configures reverse-proxy from <code>/api</code> to <code>http://localhost:5000</code> for seamless local development.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/package.json</code></td>
+        <td>Frontend dependencies manifest (React 18, React Router v6, Axios, Lucide React, zxcvbn) and scripts (<code>dev</code>, <code>build</code>, <code>preview</code>).</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/main.jsx</code></td>
+        <td>Application bootstrap entry point. Initializes React root and renders <code>&lt;App /&gt;</code> wrapped in strict rendering mode.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/App.jsx</code></td>
+        <td>Top-level routing orchestrator. Configures client routes, layout frames (Navbar, Sidebar), and protects secure endpoints via <code>&lt;ProtectedRoute&gt;</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/index.css</code></td>
+        <td>Comprehensive design system. Implements color tokens, glassmorphism card surfaces, custom form controls, animations, and responsive utilities.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Application State & API Services</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>frontend/src/context/AuthContext.jsx</code></td>
+        <td>Central authentication state. Manages JWT lifecycle in <code>localStorage</code>, decodes user credentials, and provides <code>login()</code>, <code>register()</code>, and <code>logout()</code> hooks.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/services/api.js</code></td>
+        <td>Centralized Axios HTTP instance. Automatically intercepts all outgoing requests and injects the <code>Authorization: Bearer &lt;token&gt;</code> header.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/services/authService.js</code></td>
+        <td>Executes authentication endpoints: login requests, user registration, and active session profile resolution (<code>/api/auth/me</code>).</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/services/credentialService.js</code></td>
+        <td>Executes personal vault actions: listing credentials, adding encrypted items, triggering decryption reveal, modifying entries, and managing colleagues sharing.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/services/healthService.js</code></td>
+        <td>Retrieves personal password hygiene metrics: weak passwords count, reused credentials count, and passwords older than 90 days.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/services/adminService.js</code></td>
+        <td>Administrative client services: fetching organisation KPI metrics, toggling employee activation states, promoting user roles, and streaming compliance audit logs.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.3 Components & UI Widgets</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>.../common/TopNavbar.jsx</code></td>
+        <td>Global navigation bar displaying brand header, active session indicators, authenticated user profile chip, and one-click Logout.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../common/Sidebar.jsx</code></td>
+        <td>Responsive left navigation. Renders employee links (Vault, Password Health) and privileged administrator links (Dashboard, Users, Health, Audit Trail).</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../common/ProtectedRoute.jsx</code></td>
+        <td>Route security guard. Validates token presence and required role privileges; redirects unauthenticated visitors to <code>/login</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../common/LiveStrengthMeter.jsx</code></td>
+        <td>Real-time password entropy meter powered by <code>zxcvbn</code>. Calculates scores (0–4) with interactive color-coded visual bars and crack-time estimation.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../credentials/CredentialDetailModal.jsx</code></td>
+        <td>Detail modal with on-demand zero-knowledge decryption. Clicking <strong>Reveal</strong> fetches decrypted password from API with 1-click clipboard copy.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../credentials/CredentialFormModal.jsx</code></td>
+        <td>Add/Edit credential dialog. Collects service title, username, password, and URL. Features live password generator integration.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../credentials/GeneratorWidget.jsx</code></td>
+        <td>High-entropy password generator. Adjustable length slider (8–64 chars) with toggles for uppercase, lowercase, numbers, and special symbols.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.../credentials/ShareModal.jsx</code></td>
+        <td>Secure credential delegation dialog. Lists colleagues with search, assigns <code>view</code> or <code>edit</code> permissions, and manages active access revocations.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.4 Application Pages</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/LoginPage.jsx</code></td>
+        <td>Authentication view with demo account quick-fill selectors for fast evaluation.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/RegisterPage.jsx</code></td>
+        <td>Employee registration page enforcing master password complexity via live feedback.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/CredentialsPage.jsx</code></td>
+        <td>Primary personal vault dashboard. Displays stored and shared credentials with filtering, search, reveal, edit, and sharing triggers.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/HealthPage.jsx</code></td>
+        <td>Personal password hygiene diagnostics displaying overall score and flags for weak, reused, or expired credentials.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/AdminDashboardPage.jsx</code></td>
+        <td>Executive summary view displaying total users, credentials managed, organisation health index, and recent audit activity.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/AdminUsersPage.jsx</code></td>
+        <td>Governance dashboard allowing administrators to activate/deactivate accounts or promote/demote employee roles.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/AdminHealthPage.jsx</code></td>
+        <td>Enterprise health audit view reporting vulnerability counts per employee without ever exposing plaintext secrets.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>frontend/src/pages/AdminAuditPage.jsx</code></td>
+        <td>Compliance audit trail showing tamper-evident log records with timestamp, actor email, action type, credential title, and IP address.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Backend Module (<code>backend/</code>)</h2>
+  <p>The application server layer built on Node.js and Express.js providing authentication, access control, and cryptography.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>backend/server.js</code></td>
+        <td>Server entry point. Mounts CORS, express body parsers, routes, error handler, and serves client static build in production. Automatically loads <code>config/.env</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/package.json</code></td>
+        <td>Backend dependencies (<code>express</code>, <code>mongoose</code>, <code>bcryptjs</code>, <code>jsonwebtoken</code>, <code>mongodb-memory-server</code>, <code>zxcvbn</code>) and run scripts.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/routes/authRoutes.js</code></td>
+        <td>Declares authentication endpoints: <code>POST /register</code>, <code>POST /login</code>, and <code>GET /me</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/routes/credentialRoutes.js</code></td>
+        <td>Declares credential lifecycle endpoints: list, create, reveal/decrypt, update, delete, and delegate share permissions.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/routes/healthRoutes.js</code></td>
+        <td>Declares password health diagnostic endpoint: <code>GET /api/health/me</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/routes/adminRoutes.js</code></td>
+        <td>Declares administrative governance endpoints protected by <code>requireAdmin</code>: stats, user status toggling, role assignment, and audit logs.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/controllers/authController.js</code></td>
+        <td>Authenticates users, generates signed JWT tokens, enforces bcrypt hashing, and logs login security events.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/controllers/credentialController.js</code></td>
+        <td>Performs AES-256-GCM encryption on save, handles zero-knowledge on-demand decryption upon reveal, checks user ownership, and records audit logs.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/controllers/shareController.js</code></td>
+        <td>Manages shared credentials: creates/updates <code>SharedAccess</code> documents, enforces recipient checks, and handles revocation.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/controllers/healthController.js</code></td>
+        <td>Performs password health checks: computes strength scores, checks password age (>90 days), and detects cross-credential password reuse via in-memory hashing.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/controllers/adminController.js</code></td>
+        <td>Computes organization-wide security metrics, updates user roles and status, and streams filterable compliance logs.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/middleware/auth.js</code></td>
+        <td>JWT verification middleware (<code>authenticateToken</code>). Validates bearer token, confirms user active status in database, and attaches <code>req.user</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/middleware/rbac.js</code></td>
+        <td>Role-Based Access Control guard (<code>requireAdmin</code>). Rejects non-admin users with an HTTP 403 Forbidden response.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/middleware/validate.js</code></td>
+        <td>Input validation suite using <code>express-validator</code> for emails, strong passwords, URLs, and permissions.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/middleware/errorHandler.js</code></td>
+        <td>Central error handler catching unhandled exceptions and returning sanitized, standardized JSON error responses.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/utils/crypto.js</code></td>
+        <td>Cryptographic utility implementing AES-256-GCM authenticated cipher/decipher with random 16-byte IV and auth tag validation, plus cryptographic password generation.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/utils/passwordHealth.js</code></td>
+        <td>Entropy calculation engine wrapping <code>zxcvbn</code> to return password scores (0 to 4) and remediation feedback.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>backend/utils/auditLogger.js</code></td>
+        <td>Tamper-evident audit logger (<code>logAuditEvent</code>). Asynchronously writes audit records to MongoDB with actor ID, action type, IP address, and timestamp.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Database Module (<code>database/</code>)</h2>
+  <p>MongoDB Mongoose schemas, auto-reconnecting database engine, in-memory fallback, and seeding scripts.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>database/config/db.js</code></td>
+        <td>Database connection manager. Tries connecting to <code>MONGO_URI</code>; if local MongoDB is unavailable, automatically spawns an embedded <strong>MongoMemoryServer</strong> so the project runs out-of-the-box.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/models/User.js</code></td>
+        <td>User Mongoose schema (<code>name</code>, unique <code>email</code>, <code>masterPasswordHash</code>, <code>role</code>, <code>isActive</code>, <code>createdAt</code>). Contains bcrypt hashing helper methods.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/models/Credential.js</code></td>
+        <td>Credential schema (<code>ownerId</code>, <code>title</code>, <code>username</code>, <code>url</code>, <code>encryptedPassword</code>, <code>iv</code>, <code>authTag</code>, <code>strengthScore</code>, <code>lastUpdated</code>). Plaintext passwords are never stored.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/models/SharedAccess.js</code></td>
+        <td>SharedAccess schema (<code>credentialId</code>, <code>sharedWith</code>, <code>sharedBy</code>, <code>permission: 'view'|'edit'</code>, <code>createdAt</code>) for granular employee sharing.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/models/AuditLog.js</code></td>
+        <td>AuditLog schema (<code>userId</code>, <code>action</code>, <code>credentialId</code>, <code>credentialTitle</code>, <code>details</code>, <code>ipAddress</code>, <code>timestamp</code>) indexed for fast compliance queries.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/seed.js</code></td>
+        <td>Self-contained database seeder. Populates sample accounts (Admin: Meera, Employees: Aditya, Rahul, Sneha, Kiran), encrypted credentials, shares, and audit logs.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/sample_data.json</code></td>
+        <td>Static JSON fixtures export for reference and external testing.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>database/README.md</code></td>
+        <td>Dedicated documentation explaining database schemas, encryption fields, and seeding instructions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5. Configuration, Utilities & Root Files</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 32%;">File Path</th>
+        <th>Primary Job & Responsibilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="file-cell"><code>config/.env</code></td>
+        <td>Active local configuration file defining <code>PORT</code>, <code>MONGO_URI</code>, <code>JWT_SECRET</code>, <code>ENCRYPTION_KEY</code>, and <code>CLIENT_URL</code>. Excluded from Git.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>config/.env.example</code></td>
+        <td>Environment variables template committed to version control with guidance on generating secure encryption keys.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>others/postman_collection.json</code></td>
+        <td>Complete Postman test collection (v2.1) covering all REST endpoints for API validation.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>others/generate_diagrams.py</code></td>
+        <td>Python Pillow script that generates high-resolution architectural, class, and sequence diagram images in <code>docs/diagrams/</code>.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>others/update_report.py</code></td>
+        <td>Python utility that embeds updated diagrams and screenshots into the formal Word report document.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>docs/</code></td>
+        <td>Houses project presentations (Review 0 & 1), full-resolution UI screenshots, generated diagrams, and project reports. Kept intact as requested.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>package.json</code></td>
+        <td>Root orchestrator with concurrent scripts (<code>npm run dev</code>, <code>npm run server</code>, <code>npm run client</code>, <code>npm run seed</code>, <code>npm run build</code>).</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>SecureVault.code-workspace</code></td>
+        <td>VS Code workspace definition organizing the repository into Frontend, Backend, Database, and Docs folders.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>.gitignore</code></td>
+        <td>Git exclusion rules for dependencies (<code>node_modules/</code>), build outputs (<code>dist/</code>), and secrets (<code>config/.env</code>).</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>render.yaml</code></td>
+        <td>Infrastructure configuration for 1-click cloud deployment on Render.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>README.md</code></td>
+        <td>Comprehensive project guide with setup instructions, security principles, and quick-start commands.</td>
+      </tr>
+      <tr>
+        <td class="file-cell"><code>MODULES.md</code></td>
+        <td>Markdown version of this complete modules and files reference guide.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>6. End-to-End Request & Security Lifecycle</h2>
+  <div class="callout callout-blue">
+    <strong>How Data Flows Through The System:</strong>
+    <ol style="margin-left: 18px; margin-top: 6px;">
+      <li><strong>UI Action:</strong> User enters a password in <code>CredentialFormModal.jsx</code>; <code>LiveStrengthMeter.jsx</code> computes entropy score (0–4) locally.</li>
+      <li><strong>API Transmission:</strong> <code>credentialService.js</code> sends a <code>POST /api/credentials</code> request with the Bearer JWT token in the <code>Authorization</code> header.</li>
+      <li><strong>Auth Verification:</strong> <code>auth.js</code> middleware decodes the JWT, validates user active state against the <code>User</code> model, and attaches <code>req.user</code>.</li>
+      <li><strong>AES-256-GCM Encryption:</strong> <code>credentialController.js</code> passes the plaintext secret to <code>crypto.js</code>, which generates a fresh 16-byte random IV, creates a Galois Counter Mode cipher, and extracts a 16-byte authentication tag.</li>
+      <li><strong>Database Persistence:</strong> Only ciphertext, IV, and auth tag are written to MongoDB via <code>Credential.js</code>. Plaintext is discarded from memory.</li>
+      <li><strong>Audit Logging:</strong> <code>auditLogger.js</code> writes an immutable record to <code>AuditLog.js</code> recording user identity, action (<code>create</code>), credential title, client IP, and timestamp.</li>
+      <li><strong>On-Demand Decryption (Reveal):</strong> When an authorized user requests reveal, <code>credentialController.js</code> verifies ownership or <code>SharedAccess.js</code> permissions, decrypts the ciphertext using the stored IV and auth tag, and streams the decrypted password back to the client.</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    SecureVault Credential Management Platform · Automated System Architecture & Modules Reference Manual
+  </div>
+
+</body>
+</html>

@@ -5,8 +5,8 @@
       "name": "⚙️ Debug Backend (Server)",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/server",
-      "program": "${workspaceFolder}/server/server.js",
+      "cwd": "${workspaceFolder}/backend",
+      "program": "${workspaceFolder}/backend/server.js",
       "restart": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
@@ -16,8 +16,8 @@
       "name": "🌱 Run Database Seeder",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/server",
-      "program": "${workspaceFolder}/server/seed.js",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/database/seed.js",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     }
